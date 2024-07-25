@@ -46,11 +46,11 @@ function ShortenUrlFormComponent({ setState } : { setState: SetStateAction }) {
 
     return <>
             <h4 style={{marginBottom: "12px"}}>Shorten a long URL</h4>
-            <form className={styles['shorten-url-form']} onSubmit={submitForm}>
+            <form role="form" className={styles['shorten-url-form']} onSubmit={submitForm}>
                 <div className={styles['input-group']}>
-                    <input name="url" className={styles['input-field']} type="url" value={url} onChange={event => setUrl(event.target.value)}/>
+                    <input name="url" placeholder="Enter URL to Shorten" className={styles['input-field']} type="url" value={url} onChange={event => setUrl(event.target.value)}/>
                 </div>
-                <input type="Submit" className={styles['submit-button']} value="Submit"/>
+                <input type="submit" className={styles['submit-button']} value="Submit"/>
             </form>
         </>
 }
@@ -58,12 +58,12 @@ function ShortenUrlFormComponent({ setState } : { setState: SetStateAction }) {
 function ShortenUrlResultComponent({ result, setState } : { result: ShortenUrlResult, setState: SetStateAction }) {
     return <div>
         <div className={styles['input-group']}>
-            <label className={styles['input-label']}>Shortened URL </label> 
-            <input readOnly={true} className={styles['input-field']} name="shortenedUrl" value={result.shortenedUrl}/>
+            <label htmlFor="shortenedUrl" className={styles['input-label']}>Shortened URL</label> 
+            <input readOnly={true} className={styles['input-field']} id="shortenedUrl" name="shortenedUrl" value={result.shortenedUrl}/>
         </div>
         <div className={styles['input-group']}>
-            <label className={styles['input-label']}>Original URL </label>
-            <input readOnly={true} className={styles['input-field']} name="originalUrl" value={result.originalUrl}/>
+            <label htmlFor="originalUrl" className={styles['input-label']}>Original URL</label>
+            <input readOnly={true} className={styles['input-field']} id="originalUrl" name="originalUrl" value={result.originalUrl}/>
         </div>
         <button className={styles['submit-button']} onClick={() => setState({ type: 'form' })}>Shorten Another URL</button>
     </div>

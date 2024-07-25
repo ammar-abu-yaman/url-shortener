@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import Navbar from "./(layout)/Navbar";
+import Navbar from "./_components/layout/Navbar";
+import MainContainer from "./_components/layout/MainContainer";
 import "@/styles/globals.scss";
-import MainContainer from "./(layout)/MainContainer";
 
 export const metadata: Metadata = {
   title: "Ammar's URL Shortener",
   description: "Shortens URLs",
 };
-
-
 
 export default function RootLayout({
   children,
