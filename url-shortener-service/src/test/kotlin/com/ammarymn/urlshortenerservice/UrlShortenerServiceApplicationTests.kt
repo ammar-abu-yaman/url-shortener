@@ -1,10 +1,10 @@
-package com.ammarymn.urlshortener.urlshortener
+package com.ammarymn.urlshortenerservice
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class UrlshortenerApplicationTests {
+class UrlShortenerServiceApplicationTests {
 
 	@Test
 	fun contextLoads() {

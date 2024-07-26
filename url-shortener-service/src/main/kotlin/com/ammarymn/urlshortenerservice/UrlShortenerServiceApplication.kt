@@ -1,11 +1,11 @@
-package com.ammarymn.urlshortener.urlshortener
+package com.ammarymn.urlshortenerservice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class UrlshortenerApplication
+class UrlShortenerServiceApplication
 
 fun main(args: Array<String>) {
-	runApplication<UrlshortenerApplication>(*args)
+	runApplication<UrlShortenerServiceApplication>(*args)
 }
