@@ -9,7 +9,6 @@ import software.amazon.awssdk.enhanced.dynamodb.TableSchema
 
 @Configuration
 class DynamoDbConfig {
-
     @Bean
     fun shortenedUrlTable(client: DynamoDbEnhancedClient): DynamoDbTable<ShortenedUrl> {
         return client.table("ShortenedUrl", TableSchema.fromBean(ShortenedUrl::class.java))
