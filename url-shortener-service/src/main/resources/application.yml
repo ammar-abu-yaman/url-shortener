@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: url-shortener-service
+
+aws:
+    region: me-south-1
+
