@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.ammarymn"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 java {
 	toolchain {
@@ -87,6 +87,7 @@ tasks.withType<ShadowJar> {
 	dependencies {
 		exclude(dependency("org.springframework.cloud:spring-cloud-function-web:4.1.3"))
 	}
+
 	// Required for Spring
 	mergeServiceFiles()
 	append("META-INF/spring.handlers")

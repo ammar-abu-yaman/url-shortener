@@ -1,5 +1,8 @@
 {
   "app": "npx ts-node --prefer-ts-exts bin/url-shortener-infra.ts",
+  "scripts": {
+
+  },
   "watch": {
     "include": [
       "**"
