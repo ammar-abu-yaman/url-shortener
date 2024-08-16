@@ -16,7 +16,7 @@ export class DataStack extends Stack {
     constructor(app: App, id: string, private props: DataStackProps) {
         super(app, id, props);
 
-        this.shortenedUrlTable = new TableV2(app, `shortened-url-table-${props.env?.region}`, {
+        this.shortenedUrlTable = new TableV2(this, `shortened-url-table-${props.env?.region}`, {
             tableName: DataStack.SHORTENED_URL_TABLE_NAME,
             partitionKey: {
                 name: DataStack.SHORTENED_URL_TABLE_PK,
@@ -25,8 +25,6 @@ export class DataStack extends Stack {
             timeToLiveAttribute: DataStack.SHORTENED_URL_TABLE_TTL_ATTR,
             billing: Billing.onDemand(),
         });
-
-        this.exportValue(this.shortenedUrlTable.tableName);
     }
 
 }

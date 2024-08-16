@@ -16,9 +16,9 @@ import java.net.URL
 import java.util.function.Function
 
 @Component
-class UrlShortenHandler @Autowired constructor(val service: ShortenedUrlService,
-                                               val objectMapper: ObjectMapper,
-                                               val responseUtil: ResponseUtil)
+class UrlShortenerHandler @Autowired constructor(val service: ShortenedUrlService,
+                                                 val objectMapper: ObjectMapper,
+                                                 val responseUtil: ResponseUtil)
     : Function<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
 
     override fun apply(event: APIGatewayV2HTTPEvent): APIGatewayV2HTTPResponse {
