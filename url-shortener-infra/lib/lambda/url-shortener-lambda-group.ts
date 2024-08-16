@@ -1,5 +1,5 @@
 import {Construct} from "constructs";
-import {BundlingOutput, Duration, Fn, Stack} from "aws-cdk-lib";
+import { BundlingOutput, Duration } from "aws-cdk-lib";
 import {Code, Function, Runtime} from "aws-cdk-lib/aws-lambda";
 import {TableV2} from "aws-cdk-lib/aws-dynamodb";
 import {DataStack} from "../stack";

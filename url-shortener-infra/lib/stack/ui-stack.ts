@@ -1,8 +1,16 @@
 import {App, Stack, StackProps} from "aws-cdk-lib";
 import {NetworkLoadBalancedEc2Service} from "aws-cdk-lib/aws-ecs-patterns";
-import {DeploymentControllerType, Ec2TaskDefinition, NetworkMode, PlacementStrategy} from "aws-cdk-lib/aws-ecs";
+import {
+    ContainerDefinition, ContainerImage,
+    DeploymentControllerType,
+    Ec2TaskDefinition,
+    NetworkMode,
+    PlacementStrategy,
+    TaskDefinition
+} from "aws-cdk-lib/aws-ecs";
 import {IpAddresses, IpProtocol, SubnetType, Vpc} from "aws-cdk-lib/aws-ec2";
 import {AnyPrincipal, Policy, Role} from "aws-cdk-lib/aws-iam";
+import {DockerImageAsset} from "aws-cdk-lib/aws-ecr-assets";
 
 export interface UiStackProps extends StackProps {}
 
@@ -38,11 +46,24 @@ export class UiStack extends Stack {
         const serviceRole = new Role(this, 'ui-service-role', {
             assumedBy: new AnyPrincipal(),
         });
+
+        const taskDefinition = new Ec2TaskDefinition(this, 'ui-task-def', {
+            networkMode: NetworkMode.AWS_VPC,
+            taskRole: serviceRole,
+        });
+
+        const serviceContainer = new ContainerDefinition(this, 'ui-task-container', {
+            containerName: "UiServiceContainer",
+            image: ContainerImage.fromDockerImageAsset(new DockerImageAsset(this, 'x', {directory: ""})),
+            portMappings: [{
+                containerPort: 80,
+            }],
+            taskDefinition,
+        });
+
+
         return new NetworkLoadBalancedEc2Service(this,'ui-service', {
-            taskDefinition: new Ec2TaskDefinition(this, 'ui-task-def', {
-                networkMode: NetworkMode.AWS_VPC,
-                taskRole: serviceRole,
-            }),
+            taskDefinition,
             placementStrategies: [PlacementStrategy.spreadAcrossInstances()],
             publicLoadBalancer: false,
             desiredCount: 2,
@@ -50,5 +71,6 @@ export class UiStack extends Stack {
             maxHealthyPercent: 150,
             deploymentController: { type: DeploymentControllerType.CODE_DEPLOY },
         });
+
     }
 }

@@ -1,0 +1,16 @@
+# Alpine node
+FROM node:22-alpine
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Expose listener port
+EXPOSE 3000/tcp
+
+# Start dev server
+CMD ["npm", "run", "dev"]
