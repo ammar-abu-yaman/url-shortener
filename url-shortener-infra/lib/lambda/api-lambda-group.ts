@@ -4,9 +4,9 @@ import {Code, Function, Runtime} from "aws-cdk-lib/aws-lambda";
 import {TableV2} from "aws-cdk-lib/aws-dynamodb";
 import {DataStack} from "../stack";
 
-export interface UrlShortenerLambdaGroupProps {}
+export interface ApiLambdaGroupProps {}
 
-export class UrlShortenerLambdaGroup extends Construct {
+export class ApiLambdaGroup extends Construct {
 
     public static readonly LAMBDA_STACK_SIZE = 2048;
 
@@ -17,7 +17,7 @@ export class UrlShortenerLambdaGroup extends Construct {
     public readonly urlShortenerLambda: Function;
 
 
-    public constructor(scope: Construct, id: string, private props?: UrlShortenerLambdaGroupProps) {
+    public constructor(scope: Construct, id: string, private props?: ApiLambdaGroupProps) {
         super(scope, id);
 
         const code = this.getApiCode();
@@ -50,7 +50,7 @@ export class UrlShortenerLambdaGroup extends Construct {
                     "/bin/sh",
                     "-c",
                     `./gradlew shadowJar \
-                    && cp /asset-input/build/libs/url-shortener-service-${UrlShortenerLambdaGroup.CODE_VERSION}-aws.jar /asset-output/lambda.jar`,
+                    && cp /asset-input/build/libs/url-shortener-service-${ApiLambdaGroup.CODE_VERSION}-aws.jar /asset-output/lambda.jar`,
                 ],
                 user: "root",
                 outputType: BundlingOutput.ARCHIVED,
@@ -62,9 +62,9 @@ export class UrlShortenerLambdaGroup extends Construct {
         return new Function(this, id, {
             code,
             functionName: name,
-            description: `${UrlShortenerLambdaGroup.CODE_VERSION}`,
+            description: `${ApiLambdaGroup.CODE_VERSION}`,
             handler: "org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest",
-            memorySize: UrlShortenerLambdaGroup.LAMBDA_STACK_SIZE,
+            memorySize: ApiLambdaGroup.LAMBDA_STACK_SIZE,
             runtime: Runtime.JAVA_17,
             timeout: Duration.seconds(10),
             environment: {

@@ -1,1 +1,1 @@
-export * from './url-shortener-lambda-group';
+export * from './api-lambda-group';

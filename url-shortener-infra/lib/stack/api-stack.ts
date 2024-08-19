@@ -1,13 +1,16 @@
 import {App, Stack, StackProps} from "aws-cdk-lib";
-import {UrlShortenerLambdaGroup} from "../lambda";
+import {ApiLambdaGroup} from "../lambda";
 import {HttpApi, HttpMethod, PayloadFormatVersion} from "aws-cdk-lib/aws-apigatewayv2";
-import {HttpLambdaIntegration} from "aws-cdk-lib/aws-apigatewayv2-integrations";
+import {HttpAlbIntegration, HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
+import { IApplicationListener } from "aws-cdk-lib/aws-elasticloadbalancingv2";
 
-export interface ApiStackProps extends StackProps {}
+export interface ApiStackProps extends StackProps {
+    uiListener: IApplicationListener,
+}
 
 export class ApiStack extends Stack {
 
-    private readonly urlShortenerLambda: UrlShortenerLambdaGroup;
+    private readonly urlShortenerLambda: ApiLambdaGroup;
 
     private readonly api: HttpApi;
 
@@ -18,7 +21,7 @@ export class ApiStack extends Stack {
             apiName: "UrlShortenerServiceApi",
         });
 
-        this.urlShortenerLambda = new UrlShortenerLambdaGroup(this, 'url-shortener-lambda');
+        this.urlShortenerLambda = new ApiLambdaGroup(this, 'url-shortener-lambda');
 
         this.api.addRoutes({
             integration: new HttpLambdaIntegration('url-shortener-lambda-integration', this.urlShortenerLambda.urlResolverLambda, {
@@ -34,6 +37,12 @@ export class ApiStack extends Stack {
             }),
             methods: [HttpMethod.POST],
             path: "/create",
+        });
+
+        this.api.addRoutes({
+            integration: new HttpAlbIntegration('ui-integration', this.props.uiListener),
+            methods: [HttpMethod.ANY],
+            path: "/",
         });
 
     }

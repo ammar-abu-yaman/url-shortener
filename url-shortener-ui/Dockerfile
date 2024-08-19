@@ -11,7 +11,10 @@ COPY . .
 RUN npm run build
 
 # Expose listener port
-EXPOSE 3000/tcp
+EXPOSE 80/tcp
+
+ENV PORT=80
 
 # Start server
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
+
