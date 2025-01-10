@@ -1,0 +1,12 @@
+.error-message {
+    color: darkred;
+    font-weight: bolder;
+}
+
+.error-message-container {
+    width: 100%;
+    height: max(20rem, 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

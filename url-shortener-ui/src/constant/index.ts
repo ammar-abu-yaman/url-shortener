@@ -1,0 +1,1 @@
+export const SHORTEN_API_URL = process.env.NEXT_PUBLIC_SHORTEN_URL_API_URL

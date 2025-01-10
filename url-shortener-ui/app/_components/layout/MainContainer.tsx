@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
-import styles from "@/styles/MainContainer.module.scss";
+import { ReactNode } from 'react'
+import styles from '@/styles/MainContainer.module.scss'
 
 export default function MainContainer({ children }: { children: ReactNode }) {
-    return <main className={`${styles['main-container']}`}>
-        <div className={styles['content-container']}>
-            {children}
-        </div>
-    </main>
+    return (
+        <main className={`${styles['main-container']}`}>
+            <div className={styles['content-container']}>{children}</div>
+        </main>
+    )
 }

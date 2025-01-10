@@ -1,7 +1,5 @@
-import ShortenUrl from "./ShortenUrl";
+import ShortenUrl from './ShortenUrl'
 
 export default function Home() {
-  return (
-        <ShortenUrl/> 
-  );
+    return <ShortenUrl />
 }

@@ -1,1 +1,1 @@
-export * from './api-lambda-group';
+export * from './api-lambda-group'

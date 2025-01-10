@@ -2,6 +2,9 @@
 FROM node:22-alpine
 WORKDIR /app
 
+# Install System dependencies 
+RUN apk add curl
+
 # Install dependencies
 COPY package*.json ./
 RUN npm ci

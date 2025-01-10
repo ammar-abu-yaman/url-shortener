@@ -21,7 +21,7 @@ class UrlResolverHandler @Autowired constructor(val service: ShortenedUrlService
             return responseUtil.error("URL Id is missing or empty")
         }
         return when(val shortenedUrl = service.getShortenedUrl(shortUrlId as String)) {
-            is ShortenedUrl -> responseUtil.redirect(shortenedUrl.originalUrl)
+            is ShortenedUrl -> responseUtil.success(shortenedUrl)
             else -> responseUtil.error("URL with id $shortUrlId not found", HttpStatusCode.NOT_FOUND)
         }
     }
