@@ -10,6 +10,7 @@
     "test": "jest",
     "lint": "npx eslint lib/**/*.ts bin/**/*.ts test/**/*.ts",
     "lint:fix": "npx eslint lib/**/*.ts bin/**/*.ts test/**/*.ts --fix",
+    "format": "npx prettier lib bin test --write",
     "cdk": "cdk",
     "clean": "rm -rf cdk.out"
   },

@@ -1,4 +1,4 @@
-import { App, Duration, Stack, StackProps } from 'aws-cdk-lib'
+import {App, Duration, Fn, Stack, StackProps} from 'aws-cdk-lib'
 import { ApplicationLoadBalancedFargateService } from 'aws-cdk-lib/aws-ecs-patterns'
 import { AwsLogDriverMode, Cluster, Compatibility, ContainerDefinition, ContainerImage, LogDriver, NetworkMode, TaskDefinition } from 'aws-cdk-lib/aws-ecs'
 import { IpAddresses, IpProtocol, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2'
@@ -86,6 +86,9 @@ export class UiStack extends Stack {
                 startPeriod: Duration.minutes(5),
                 retries: 3,
             },
+            environment: {
+                SHORTEN_URL_API_URL: Fn.importValue('link-api-url'),
+            }
         })
 
         const cluster = new Cluster(this, 'ui-cluster', {
@@ -93,23 +96,6 @@ export class UiStack extends Stack {
             clusterName: 'UrlShortenerUiCluster',
             enableFargateCapacityProviders: true,
         })
-        //
-        // const securityGroup = new SecurityGroup(this, 'ui-asg-security-group', {
-        //     vpc: this.vpc,
-        //     allowAllOutbound: true,
-        // });
-        // securityGroup.addIngressRule(Peer.anyIpv4(), Port.tcp(80));
-        //
-        // const autoScalingGroup = cluster.addCapacity('ui-capacity', {
-        //     allowAllOutbound: true,
-        //     desiredCapacity: 2,
-        //     instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MEDIUM),
-        //     minCapacity: 1,
-        //     maxCapacity: 3,
-        //     vpcSubnets: { subnetType: SubnetType.PRIVATE_WITH_EGRESS },
-        //     healthCheck: HealthCheck.elb({grace: Duration.minutes(1)}),
-        // });
-        // autoScalingGroup.addSecurityGroup(securityGroup);
 
         const service = new ApplicationLoadBalancedFargateService(this, 'ui-service', {
             taskDefinition,

@@ -3,8 +3,8 @@
 import { FormEvent, useState } from 'react'
 import { match, P } from 'ts-pattern'
 import styles from '@/styles/ShortUrl.module.scss'
-import { ShortenUrlApi } from '@/src/api/ShortenUrlApi'
 import { ShortenedUrl } from '@/src/types/shortened-url'
+import { shortenUrl } from '@/app/actions'
 
 type State = { type: 'form' } | { type: 'result'; result: ShortenedUrl }
 
@@ -29,7 +29,7 @@ function ShortenUrlFormComponent({ setState }: { setState: SetStateAction }) {
 
     const submitForm = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const result = await ShortenUrlApi.shortenUrl(url)
+        const result = await shortenUrl(url)
         match(result)
             .with({ type: 'success', data: P.select() }, (data) =>
                 setState({

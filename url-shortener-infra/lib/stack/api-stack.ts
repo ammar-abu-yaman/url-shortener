@@ -39,6 +39,6 @@ export class ApiStack extends Stack {
             path: '/create',
         })
 
-        this.exportValue(`${this.api.apiId}.execute-api.${this.region}.amazonaws.com`, { name: 'link-api-url' })
+        this.exportValue(`https://${this.api.apiId}.execute-api.${this.region}.amazonaws.com`, { name: 'link-api-url' })
     }
 }
